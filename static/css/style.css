@@ -1,0 +1,59 @@
+/* Custom styles for Agri Dashboard */
+:root{
+  --brand: #2e7d32; /* green */
+  --muted: #6c757d;
+  --bg: #f7faf7;
+}
+
+body{
+  background-color: var(--bg);
+  color: #1b1b1b;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.navbar-brand{
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.navbar{
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.container main{
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+}
+
+.card-page{
+  margin-bottom: 1.5rem;
+}
+
+.table thead th{
+  background: rgba(46,125,50,0.08);
+}
+
+.table-hover tbody tr:hover{
+  background-color: rgba(46,125,50,0.04);
+}
+
+.table-responsive{
+  overflow-x: auto;
+}
+
+.footer{
+  padding: 1rem 0;
+  color: var(--muted);
+  text-align: center;
+  border-top: 1px solid rgba(0,0,0,0.03);
+  margin-top: 2rem;
+}
+
+.alert-flash{
+  position: relative;
+  margin-top: 1rem;
+}
+
+@media (max-width: 576px){
+  .navbar-brand{ font-size: 1rem; }
+}

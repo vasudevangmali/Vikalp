@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agri Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2e7d32;" aria-label="Main navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Agri Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('filter_page') }}">Filter</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('aggregate_summary') }}">Aggregation</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('analysis') }}">Analysis</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        <div class="container">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-warning alert-flash" role="alert">
+                            {% for m in messages %}{{ m }}{% if not loop.last %}<br>{% endif %}{% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <main class="my-4">
+                    {% block content %}{% endblock %}
+                </main>
+
+                <footer class="footer">
+                    <small>© {{ current_year if current_year is defined else "" }} Agri Dashboard — Data source: local DB</small>
+                </footer>
+        </div>
+
+    <!-- Bootstrap JS (optional, for dropdowns, navbar) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+    {# page-specific scripts can be injected by templates into this block #}
+    {% block scripts %}{% endblock %}
+</body>
+</html>

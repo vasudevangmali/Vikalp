@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h3 class="mb-3">Aggregation Results</h3>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <form method="post" class="row g-2">
+                <div class="col-md-4">
+                    <label class="form-label">District</label>
+                    <select name="district" class="form-select">
+                        <option value="">— Any —</option>
+                        {% for d in districts %}
+                            <option value="{{ d }}" {% if selected_district == d %}selected{% endif %}>{{ d }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Block</label>
+                    <select name="block" class="form-select">
+                        <option value="">— Any —</option>
+                        {% for b in blocks %}
+                            <option value="{{ b }}" {% if selected_block == b %}selected{% endif %}>{{ b }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">State</label>
+                    <select name="state" class="form-select">
+                        <option value="">— Any —</option>
+                        {% for s in states %}
+                            <option value="{{ s }}" {% if selected_block == s %}selected{% endif %}>{{ s }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-4 align-self-end">
+                    <button class="btn btn-success" type="submit">Aggregate</button>
+                    <a href="{{ url_for('aggregate_summary') }}" class="btn btn-outline-secondary ms-2">Reset</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="card card-page">
+        <div class="card-body p-2">
+            {% if results %}
+                <h6 class="mb-2">Results ({{ results | length }})</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-sm table-striped mb-0">
+                        <thead>
+                            <tr>
+                                {% for k in results[0].keys() %}
+                                    <th>{{ k }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in results %}
+                                <tr>
+                                    {% for v in r.values() %}
+                                        <td>{{ v }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No aggregation results found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

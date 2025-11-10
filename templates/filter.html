@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h3 class="mb-3">Filter Records</h3>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <form method="post" class="row g-2">
+        <div class="col-md-4">
+          <label class="form-label">District</label>
+          <select name="district" class="form-select">
+            <option value="">— Any —</option>
+            {% for d in districts %}
+              {% set sel = false %}
+              {% if query and query.District is defined %}
+                {% set raw = query.District['$regex'] if query.District.get('$regex') is defined else query.District %}
+                {% set sel = (raw[1:-1] == d) %}
+              {% endif %}
+              <option value="{{ d }}" {% if sel %}selected{% endif %}>{{ d }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Block</label>
+          <select name="block" class="form-select">
+            <option value="">— Any —</option>
+            {% for b in blocks %}
+              {% set sel = false %}
+              {% if query and query.Block is defined %}
+                {% set raw = query.Block['$regex'] if query.Block.get('$regex') is defined else query.Block %}
+                {% set sel = (raw[1:-1] == b) %}
+              {% endif %}
+              <option value="{{ b }}" {% if sel %}selected{% endif %}>{{ b }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Village</label>
+          <select name="village" class="form-select">
+            <option value="">— Any —</option>
+            {% for v in villages %}
+              {% set sel = false %}
+              {% if query and query.Village is defined %}
+                {% set raw = query.Village['$regex'] if query.Village.get('$regex') is defined else query.Village %}
+                {% set sel = (raw[1:-1] == v) %}
+              {% endif %}
+              <option value="{{ v }}" {% if sel %}selected{% endif %}>{{ v }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-12 mt-2">
+          <button type="submit" class="btn btn-success">Search</button>
+          <a href="{{ url_for('filter_page') }}" class="btn btn-outline-secondary ms-2">Reset</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {# Results area #}
+  <div class="card card-page">
+    <div class="card-body p-2">
+      {% if results %}
+        <h6 class="mb-2">Results ({{ results | length }})</h6>
+        <div class="table-responsive">
+          <table class="table table-sm table-striped table-hover mb-0">
+            <thead>
+              <tr>
+                {% for k in results[0].keys() %}
+                  <th>{{ k }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in results %}
+                <tr>
+                  {% for v in row.values() %}
+                    <td>{{ v }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p>No results found for your filter.</p>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

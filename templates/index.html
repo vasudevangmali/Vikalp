@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">Sample Records (first 50)</h1>
+
+<div class="card card-page">
+    <div class="card-body p-2">
+        {% if data %}
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-hover mb-0">
+                    <thead>
+                        <tr>
+                            {% for k in data[0].keys() %}
+                                <th>{{ k }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in data %}
+                            <tr>
+                                {% for v in row.values() %}
+                                    <td>{{ v }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No data available.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
