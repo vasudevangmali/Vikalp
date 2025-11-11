@@ -17,6 +17,7 @@ app.secret_key = '4e5f2c8e4e5d9b7a8b0f3c2e4d6a1b2c'
 client = MongoClient(
     MONGO_URI,
     tls=True,
+    tlsAllowInvalidCertificates=False,
     tlsCAFile=certifi.where()
 )
 
