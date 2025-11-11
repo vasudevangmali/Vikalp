@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/')
+# MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017/')
+MONGO_URI= os.getenv('MONGO_URI', 'mongodb+srv://vasumali30000_db_user:WfFLc82eKtX2jT2f@cluster0.no3acmo.mongodb.net/?appName=Cluster0')
 DB_NAME = 'vikalp_db'
 COLLECTION_NAME = 'agri_demand'
 
