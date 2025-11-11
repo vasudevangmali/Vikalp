@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
+import certifi
 
 load_dotenv()
 
@@ -13,7 +14,12 @@ COLLECTION_NAME = 'agri_demand'
 app = Flask(__name__)
 app.secret_key = '4e5f2c8e4e5d9b7a8b0f3c2e4d6a1b2c'
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(
+    MONGO_URI,
+    tls=True,
+    tlsCAFile=certifi.where()
+)
+
 db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
 
